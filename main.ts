@@ -2,20 +2,6 @@ namespace SpriteKind {
     export const camera = SpriteKind.create()
     export const Player2 = SpriteKind.create()
 }
-sprites.onOverlap(SpriteKind.Player2, SpriteKind.Player, function (sprite, otherSprite) {
-    if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx > 0) {
-        sprite.right = otherSprite.left
-    }
-    if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx < 0) {
-        sprite.left = otherSprite.right
-    }
-    if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy > 0) {
-        sprite.bottom = otherSprite.top
-    }
-    if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy < 0) {
-        sprite.top = otherSprite.bottom
-    }
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Player2, function (player2, wall) {
     if (player2.vx != 0) {
         xStoppedAt = wall.x - 16 * Math.abs(player2.vx) / player2.vx

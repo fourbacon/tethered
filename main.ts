@@ -4,8 +4,8 @@ namespace SpriteKind {
     export const spike_hitbox = SpriteKind.create()
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.spike_hitbox, function (sprite, otherSprite) {
-    game.splash("Try harder next time")
-    game.reset()
+    game.setGameOverMessage(false, "Try harder next time")
+    game.gameOver(false)
 })
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) || mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two))) && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0)) {
@@ -19,8 +19,10 @@ function Distance (mySprite: Sprite, mySprite2: Sprite) {
     return Math.sqrt((mySprite.x - mySprite2.x) ** 2 + (mySprite.y - mySprite2.y) ** 2)
 }
 spriteutils.createRenderable(0, function (screen2) {
-    screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y - 135, centercamera.x, centercamera.y - 135, 15)
-    screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - 135, centercamera.x, centercamera.y - 135, 15)
+    if (!(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).overlapsWith(mySprite)) && !(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mySprite))) {
+        screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y - 135, centercamera.x, centercamera.y - 135, 15)
+        screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - 135, centercamera.x, centercamera.y - 135, 15)
+    }
 })
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) || mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)))) {

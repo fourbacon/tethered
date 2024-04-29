@@ -7,6 +7,9 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = -125
     }
 })
+function Distance (mySprite: Sprite, mySprite2: Sprite) {
+    return Math.sqrt((mySprite.x - mySprite2.x) ** 2 + (mySprite.y - mySprite2.y) ** 2)
+}
 spriteutils.createRenderable(0, function (screen2) {
     screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y - 135, centercamera.x, centercamera.y - 135, 10)
     screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - 135, centercamera.x, centercamera.y - 135, 10)
@@ -48,7 +51,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
         otherSprite.setPosition(sprite.x + 15, otherSprite.y)
     }
 })
-let Distance = 0
 let centercamera: Sprite = null
 tiles.setCurrentTilemap(tilemap`level2`)
 mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
@@ -114,8 +116,7 @@ tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), ti
 tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), tiles.getTileLocation(1, 14))
 game.onUpdate(function () {
     centercamera.setPosition((mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x + mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) / 2, (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y + mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y) / 2)
-    Distance = Math.sqrt((mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x - mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) * (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x - mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) + (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y) * (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y))
-    Tether(Distance)
+    Tether(Distance(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two))))
 })
 forever(function () {
     if (!(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two))))) {

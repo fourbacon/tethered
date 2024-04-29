@@ -40,9 +40,9 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . . 2 2 2 2 
-. . . . 2 . . 2 . . 2 . 2 2 2 2 
-. . 2 2 2 . . 2 . . 2 . 2 2 2 2 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
 `, [myTiles.transparency16,sprites.dungeon.floorLight0,sprites.dungeon.floorDark0], TileScale.Sixteen);
         }

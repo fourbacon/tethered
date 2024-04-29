@@ -2,14 +2,9 @@ namespace SpriteKind {
     export const camera = SpriteKind.create()
     export const Player2 = SpriteKind.create()
 }
-function GravityP1 (num: number) {
-    VelocityyP1 += 9.8
-    return VelocityyP1
-}
 controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) || mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two))) && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0)) {
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = -125
-        VelocityyP2 = -125
     }
 })
 spriteutils.createRenderable(0, function (screen2) {
@@ -19,7 +14,6 @@ spriteutils.createRenderable(0, function (screen2) {
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) || mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)))) {
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vy = -125
-        VelocityyP1 = -125
     }
 })
 function Tether (num: number) {
@@ -54,13 +48,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
         otherSprite.setPosition(sprite.x + 15, otherSprite.y)
     }
 })
-function GravityP2 (num: number) {
-    VelocityyP2 += 9.8
-    return VelocityyP2
-}
 let Distance = 0
-let VelocityyP2 = 0
-let VelocityyP1 = 0
 let centercamera: Sprite = null
 tiles.setCurrentTilemap(tilemap`level2`)
 mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
@@ -130,11 +118,8 @@ game.onUpdate(function () {
     Tether(Distance)
 })
 forever(function () {
-    if (!(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0))) {
-        GravityP1(VelocityyP1)
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = VelocityyP1
-    } else if (!(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0))) {
-        GravityP2(VelocityyP2)
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vy = VelocityyP2
+    if (!(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two))))) {
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).ay = 300
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).ay = 300
     }
 })

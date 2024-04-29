@@ -3,6 +3,10 @@ namespace SpriteKind {
     export const Player2 = SpriteKind.create()
     export const spike_hitbox = SpriteKind.create()
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    game.setGameOverMessage(true, "Was it worth it?")
+    game.gameOver(true)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.spike_hitbox, function (sprite, otherSprite) {
     game.setGameOverMessage(false, "Try harder next time")
     game.gameOver(false)

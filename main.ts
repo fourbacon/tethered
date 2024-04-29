@@ -7,12 +7,15 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = -125
     }
 })
+function pickcharacterP1 (list: Sprite[]) {
+    mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), list[game.askForNumber("P1 Character 0:Red 1:Blue 2:Green 3:Yellow 4:Purple", 1)])
+}
 function Distance (mySprite: Sprite, mySprite2: Sprite) {
     return Math.sqrt((mySprite.x - mySprite2.x) ** 2 + (mySprite.y - mySprite2.y) ** 2)
 }
 spriteutils.createRenderable(0, function (screen2) {
-    screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y - 135, centercamera.x, centercamera.y - 135, 10)
-    screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - 135, centercamera.x, centercamera.y - 135, 10)
+    screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y - 135, centercamera.x, centercamera.y - 135, 15)
+    screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - 135, centercamera.x, centercamera.y - 135, 15)
 })
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) || mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)))) {
@@ -51,9 +54,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
         otherSprite.setPosition(sprite.x + 15, otherSprite.y)
     }
 })
+function PickcharacterP2 (list: Sprite[]) {
+    mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), list[game.askForNumber("P2 Character 0:Red 1:Blue 2:Green 3:Yellow 4:Purple", 1)])
+}
 let centercamera: Sprite = null
-tiles.setCurrentTilemap(tilemap`level2`)
-mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
+let playerchoises = [
+sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -70,8 +76,8 @@ mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
     . 2 2 2 2 2 2 2 2 2 2 2 2 2 2 . 
     . . . 2 2 2 . . . . 2 2 2 . . . 
     . . . 4 4 4 . . . . 4 4 4 . . . 
-    `, SpriteKind.Player))
-mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), sprites.create(img`
+    `, SpriteKind.Player),
+sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -88,7 +94,65 @@ mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), sprites.create(img`
     . 8 8 8 8 8 8 8 8 8 8 8 8 8 8 . 
     . . . 8 8 8 . . . . 8 8 8 . . . 
     . . . 9 9 9 . . . . 9 9 9 . . . 
-    `, SpriteKind.Player))
+    `, SpriteKind.Player),
+sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . 7 7 7 7 7 7 7 7 . . . . 
+    . . . . 7 f f 7 7 f f 7 . . . . 
+    . . . . 7 f f 7 7 f f 7 . . . . 
+    . . . . 7 7 7 7 7 7 7 7 . . . . 
+    . . . . 7 7 7 7 7 7 7 7 . . . . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+    . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+    . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+    . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+    . 7 7 7 7 7 7 7 7 7 7 7 7 7 7 . 
+    . . . 7 7 7 . . . . 7 7 7 . . . 
+    . . . 5 5 5 . . . . 5 5 5 . . . 
+    `, SpriteKind.Player),
+sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . 5 5 5 5 5 5 5 5 . . . . 
+    . . . . 5 f f 5 5 f f 5 . . . . 
+    . . . . 5 f f 5 5 f f 5 . . . . 
+    . . . . 5 5 5 5 5 5 5 5 . . . . 
+    . . . . 5 5 5 5 5 5 5 5 . . . . 
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+    . . . 5 5 5 . . . . 5 5 5 . . . 
+    . . . 1 1 1 . . . . 1 1 1 . . . 
+    `, SpriteKind.Player),
+sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . a a a a a a a a . . . . 
+    . . . . a f f a a f f a . . . . 
+    . . . . a f f a a f f a . . . . 
+    . . . . a a a a a a a a . . . . 
+    . . . . a a a a a a a a . . . . 
+    . c c c c c c c c c c c c c c . 
+    . a a a a a a a a a a a a a a . 
+    . a a a a a a a a a a a a a a . 
+    . a a a a a a a a a a a a a a . 
+    . a a a a a a a a a a a a a a . 
+    . a a a a a a a a a a a a a a . 
+    . . . a a a . . . . a a a . . . 
+    . . . c c c . . . . c c c . . . 
+    `, SpriteKind.Player)
+]
+pickcharacterP1(playerchoises)
+PickcharacterP2(playerchoises)
+tiles.setCurrentTilemap(tilemap`level2`)
 centercamera = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 

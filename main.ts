@@ -34,18 +34,20 @@ controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
     }
 })
 function Tether (num: number) {
-    if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx > 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x > mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx = 0
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x - 3
-    } else if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx > 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x < mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx = 0
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x - 3
-    } else if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx < 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x < mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx = 0
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x + 3
-    } else if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx < 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x > mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx = 0
-        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x + 3
+    while (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Center, sprites.dungeon.floorDark0) && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Center, sprites.dungeon.floorDark0)) {
+        if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx > 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x > mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx = 0
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x - 3
+        } else if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx > 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x < mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx = 0
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x - 3
+        } else if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx < 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x < mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vx = 0
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x + 3
+        } else if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx < 0 && num >= 45 && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x > mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x) {
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vx = 0
+            mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x + 3
+        }
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {

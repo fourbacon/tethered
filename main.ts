@@ -4,8 +4,7 @@ namespace SpriteKind {
     export const spike_hitbox = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
-    game.setGameOverMessage(true, "Was it worth it?")
-    game.gameOver(true)
+    Level2()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.spike_hitbox, function (sprite, otherSprite) {
     game.setGameOverMessage(false, "Try harder next time")
@@ -16,6 +15,33 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = -125
     }
 })
+function Level2 () {
+    sprites.destroyAllSpritesOfKind(SpriteKind.spike_hitbox)
+    tiles.setCurrentTilemap(tilemap`level1`)
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(0, 14))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), tiles.getTileLocation(1, 14))
+    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+        mySprite = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 1 1 . . . . . . . 
+            . . . . . . 1 1 1 1 . . . . . . 
+            . . . . . . 1 1 1 1 . . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . 1 1 1 1 1 1 1 1 . . . . 
+            . . . . 1 1 1 1 1 1 1 1 . . . . 
+            . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+            . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+            `, SpriteKind.spike_hitbox)
+        tiles.placeOnTile(mySprite, value)
+    }
+}
 function pickcharacterP1 (list: Sprite[]) {
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), list[game.askForNumber("P1 Character 0:Red 1:Blue 2:Green 3:Yellow 4:Purple", 1)])
 }

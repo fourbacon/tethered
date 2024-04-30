@@ -4,9 +4,7 @@ namespace SpriteKind {
     export const spike_hitbox = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
-    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
-    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
-    sprites.destroyAllSpritesOfKind(SpriteKind.spike_hitbox, effects.none, 100)
+    sprites.destroyAllSpritesOfKind(SpriteKind.spike_hitbox)
     if (level == 1) {
         Level_2()
     }
@@ -189,6 +187,42 @@ sprites.create(img`
     . a a a a a a a a a a a a a a . 
     . . . a a a . . . . a a a . . . 
     . . . c c c . . . . c c c . . . 
+    `, SpriteKind.Player),
+sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . 3 3 3 3 3 3 3 3 . . . . 
+    . . . . 3 f f 3 3 f f 3 . . . . 
+    . . . . 3 f f 3 3 f f 3 . . . . 
+    . . . . 3 3 3 3 3 3 3 3 . . . . 
+    . . . . 3 3 3 3 3 3 3 3 . . . . 
+    . 1 1 1 1 1 1 1 1 1 1 1 1 1 1 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . 3 3 3 3 3 3 3 3 3 3 3 3 3 3 . 
+    . . . 3 3 3 . . . . 3 3 3 . . . 
+    . . . 1 1 1 . . . . 1 1 1 . . . 
+    `, SpriteKind.Player),
+sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . f f f f f f f f . . . . 
+    . . . . f 1 1 f f 1 1 f . . . . 
+    . . . . f 1 1 f f 1 1 f . . . . 
+    . . . . f f f f f f f f . . . . 
+    . . . . f f f f f f f f . . . . 
+    . c c c c c c c c c c c c c c . 
+    . f f f f f f f f f f f f f f . 
+    . f f f f f f f f f f f f f f . 
+    . f f f f f f f f f f f f f f . 
+    . f f f f f f f f f f f f f f . 
+    . f f f f f f f f f f f f f f . 
+    . . . f f f . . . . f f f . . . 
+    . . . c c c . . . . c c c . . . 
     `, SpriteKind.Player)
 ]
 namespace userconfig {
@@ -196,8 +230,8 @@ namespace userconfig {
     export const ARCADE_SCREEN_HEIGHT = 220
 }
 scene.centerCameraAt(222.5, 300)
-mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), playerchoises[game.askForNumber("P1 CHARACTER 0:RED 1:BLUE 2:GREEN 3:YELLOW 4:PURPLE", 1)])
-mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), playerchoises[game.askForNumber("P2 CHARACTER 0:RED 1:BLUE 2:GREEN 3:YELLOW 4:PURPLE", 1)])
+mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), playerchoises[game.askForNumber("P1 CHARACTER 0:RED 1:BLUE 2:GREEN 3:YELLOW 4:PURPLE 5:PINK 6:BLACK", 1)])
+mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), playerchoises[game.askForNumber("P2 CHARACTER 0:RED 1:BLUE 2:GREEN 3:YELLOW 4:PURPLE 5:PINK 6:BLACK", 1)])
 centercamera = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 

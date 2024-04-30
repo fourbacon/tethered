@@ -4,8 +4,12 @@ namespace SpriteKind {
     export const spike_hitbox = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
-    game.setGameOverMessage(true, "Was it worth it?")
-    game.gameOver(true)
+    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
+    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
+    sprites.destroyAllSpritesOfKind(SpriteKind.spike_hitbox, effects.none, 100)
+    if (level == 1) {
+        Level_2()
+    }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.spike_hitbox, function (sprite, otherSprite) {
     game.setGameOverMessage(false, "Try harder next time")
@@ -16,18 +20,9 @@ controller.player1.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pres
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = -125
     }
 })
-function pickcharacterP1 (list: Sprite[]) {
-    mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), list[game.askForNumber("P1 Character 0:Red 1:Blue 2:Green 3:Yellow 4:Purple", 1)])
-}
 function Distance (mySprite: Sprite, mySprite2: Sprite) {
     return Math.sqrt((mySprite.x - mySprite2.x) ** 2 + (mySprite.y - mySprite2.y) ** 2)
 }
-spriteutils.createRenderable(0, function (screen2) {
-    if (!(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).overlapsWith(mySprite)) && !(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mySprite))) {
-        screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y - 135, centercamera.x, centercamera.y - 135, 15)
-        screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - 135, centercamera.x, centercamera.y - 135, 15)
-    }
-})
 controller.player2.onButtonEvent(ControllerButton.Up, ControllerButtonEvent.Pressed, function () {
     if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) || mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0) && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)))) {
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vy = -125
@@ -50,6 +45,12 @@ function Tether (num: number) {
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x = mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x + 3
     }
 }
+spriteutils.createRenderable(0, function (screen2) {
+    if (!(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).overlapsWith(mySprite)) && !(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).overlapsWith(mySprite))) {
+        screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).y - 35, centercamera.x, centercamera.y - 35, 15)
+        screen2.drawLine(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).x, mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).y - 35, centercamera.x, centercamera.y - 35, 15)
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherSprite) {
     if (sprite.vy > 0 && otherSprite.tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0)) {
         sprite.vy = 0
@@ -67,11 +68,37 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
         otherSprite.setPosition(sprite.x + 15, otherSprite.y)
     }
 })
-function PickcharacterP2 (list: Sprite[]) {
-    mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), list[game.askForNumber("P2 Character 0:Red 1:Blue 2:Green 3:Yellow 4:Purple", 1)])
+function Level_2 () {
+    tiles.setCurrentTilemap(tilemap`level1`)
+    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+        mySprite = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . 1 1 . . . . . . . 
+            . . . . . . 1 1 1 1 . . . . . . 
+            . . . . . . 1 1 1 1 . . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . 1 1 1 1 1 1 1 1 . . . . 
+            . . . . 1 1 1 1 1 1 1 1 . . . . 
+            . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+            . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+            `, SpriteKind.spike_hitbox)
+        tiles.placeOnTile(mySprite, value)
+    }
+    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
+    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
+    level += 1
 }
+let level = 0
 let mySprite: Sprite = null
 let centercamera: Sprite = null
+tiles.setCurrentTilemap(tilemap`level2`)
 let playerchoises = [
 sprites.create(img`
     . . . . . . . . . . . . . . . . 
@@ -164,9 +191,13 @@ sprites.create(img`
     . . . c c c . . . . c c c . . . 
     `, SpriteKind.Player)
 ]
-pickcharacterP1(playerchoises)
-PickcharacterP2(playerchoises)
-tiles.setCurrentTilemap(tilemap`level2`)
+namespace userconfig {
+    export const ARCADE_SCREEN_WIDTH = 255
+    export const ARCADE_SCREEN_HEIGHT = 220
+}
+scene.centerCameraAt(222.5, 300)
+mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), playerchoises[game.askForNumber("P1 CHARACTER 0:RED 1:BLUE 2:GREEN 3:YELLOW 4:PURPLE", 1)])
+mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), playerchoises[game.askForNumber("P2 CHARACTER 0:RED 1:BLUE 2:GREEN 3:YELLOW 4:PURPLE", 1)])
 centercamera = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -185,12 +216,16 @@ centercamera = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.camera)
-scene.cameraFollowSprite(centercamera)
+for (let value of playerchoises) {
+    if (mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)) != value && mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)) != value) {
+        sprites.destroy(value)
+    }
+}
 mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).setStayInScreen(true)
 mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).setStayInScreen(true)
 mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), 100, 0)
 mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Two), 100, 0)
-for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+for (let value2 of tiles.getTilesByType(assets.tile`myTile`)) {
     mySprite = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -209,9 +244,9 @@ for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         . . . 1 1 1 1 1 1 1 1 1 1 . . . 
         . . . 1 1 1 1 1 1 1 1 1 1 . . . 
         `, SpriteKind.spike_hitbox)
-    tiles.placeOnTile(mySprite, value)
+    tiles.placeOnTile(mySprite, value2)
 }
-let level = 1
+level = 1
 tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
 tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
 game.onUpdate(function () {

@@ -5,9 +5,115 @@ namespace SpriteKind {
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
     sprites.destroyAllSpritesOfKind(SpriteKind.spike_hitbox)
-    if (level == 1) {
-        Level_2()
-    } else if (level == 2) {
+    while (level == 1) {
+        tiles.setCurrentTilemap(tilemap`level1`)
+        for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+            mySprite = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . 1 1 . . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                `, SpriteKind.spike_hitbox)
+            tiles.placeOnTile(mySprite, value)
+        }
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
+        level += 1
+    }
+    while (level == 2) {
+        tiles.setCurrentTilemap(tilemap`level3`)
+        for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+            mySprite = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . 1 1 . . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                `, SpriteKind.spike_hitbox)
+            tiles.placeOnTile(mySprite, value)
+        }
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
+        level += 1
+    }
+    while (level == 3) {
+        tiles.setCurrentTilemap(tilemap`level4`)
+        for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+            mySprite = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . 1 1 . . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                `, SpriteKind.spike_hitbox)
+            tiles.placeOnTile(mySprite, value)
+        }
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
+        level += 1
+    }
+    while (level == 4) {
+        tiles.setCurrentTilemap(tilemap`level5`)
+        for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
+            mySprite = sprites.create(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . 1 1 . . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . . 1 1 1 1 . . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . . 1 1 1 1 1 1 . . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . . 1 1 1 1 1 1 1 1 . . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                . . . 1 1 1 1 1 1 1 1 1 1 . . . 
+                `, SpriteKind.spike_hitbox)
+            tiles.placeOnTile(mySprite, value)
+        }
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
+        tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
+        level += 1
+    }
+    while (level == 5) {
         game.setGameOverMessage(true, "Was it worth it?")
         game.gameOver(true)
     }
@@ -69,33 +175,6 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Player, function (sprite, otherS
         otherSprite.setPosition(sprite.x + 15, otherSprite.y)
     }
 })
-function Level_2 () {
-    tiles.setCurrentTilemap(tilemap`level1`)
-    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
-        mySprite = sprites.create(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . 1 1 . . . . . . . 
-            . . . . . . 1 1 1 1 . . . . . . 
-            . . . . . . 1 1 1 1 . . . . . . 
-            . . . . . . 1 1 1 1 . . . . . . 
-            . . . . . 1 1 1 1 1 1 . . . . . 
-            . . . . . 1 1 1 1 1 1 . . . . . 
-            . . . . 1 1 1 1 1 1 1 1 . . . . 
-            . . . . 1 1 1 1 1 1 1 1 . . . . 
-            . . . 1 1 1 1 1 1 1 1 1 1 . . . 
-            . . . 1 1 1 1 1 1 1 1 1 1 . . . 
-            `, SpriteKind.spike_hitbox)
-        tiles.placeOnTile(mySprite, value)
-    }
-    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
-    tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
-    level += 1
-}
 let level = 0
 let mySprite: Sprite = null
 let centercamera: Sprite = null

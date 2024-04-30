@@ -7,6 +7,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
     sprites.destroyAllSpritesOfKind(SpriteKind.spike_hitbox)
     if (level == 1) {
         Level_2()
+    } else if (level == 2) {
+        game.setGameOverMessage(true, "Was it worth it?")
+        game.gameOver(true)
     }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.spike_hitbox, function (sprite, otherSprite) {
@@ -75,11 +78,11 @@ function Level_2 () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
             . . . . . . . 1 1 . . . . . . . 
             . . . . . . 1 1 1 1 . . . . . . 
             . . . . . . 1 1 1 1 . . . . . . 
-            . . . . . 1 1 1 1 1 1 . . . . . 
-            . . . . . 1 1 1 1 1 1 . . . . . 
+            . . . . . . 1 1 1 1 . . . . . . 
             . . . . . 1 1 1 1 1 1 . . . . . 
             . . . . . 1 1 1 1 1 1 . . . . . 
             . . . . 1 1 1 1 1 1 1 1 . . . . 
@@ -266,11 +269,11 @@ for (let value2 of tiles.getTilesByType(assets.tile`myTile`)) {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
         . . . . . . . 1 1 . . . . . . . 
         . . . . . . 1 1 1 1 . . . . . . 
         . . . . . . 1 1 1 1 . . . . . . 
-        . . . . . 1 1 1 1 1 1 . . . . . 
-        . . . . . 1 1 1 1 1 1 . . . . . 
+        . . . . . . 1 1 1 1 . . . . . . 
         . . . . . 1 1 1 1 1 1 . . . . . 
         . . . . . 1 1 1 1 1 1 . . . . . 
         . . . . 1 1 1 1 1 1 1 1 . . . . 

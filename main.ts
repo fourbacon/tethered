@@ -30,7 +30,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
         }
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
-        level += 1
+        pause(100)
+        level = 2
     }
     while (level == 2) {
         tiles.setCurrentTilemap(tilemap`level3`)
@@ -57,7 +58,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
         }
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
-        level += 1
+        pause(100)
+        level = 3
     }
     while (level == 3) {
         tiles.setCurrentTilemap(tilemap`level4`)
@@ -84,7 +86,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
         }
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
-        level += 1
+        pause(100)
+        level = 4
     }
     while (level == 4) {
         tiles.setCurrentTilemap(tilemap`level5`)
@@ -111,7 +114,8 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
         }
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), assets.tile`myTile3`)
         tiles.placeOnRandomTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), assets.tile`myTile2`)
-        level += 1
+        pause(100)
+        level = 5
     }
     while (level == 5) {
         game.setGameOverMessage(true, "Was it worth it?")
